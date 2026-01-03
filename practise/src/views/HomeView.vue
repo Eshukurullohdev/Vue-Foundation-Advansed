@@ -77,6 +77,9 @@ const ikkiBarovar = computed(() => {
     <input v-model="son">
     <p>2 barobar: {{ ikkiBarovar }}</p>
   </div>
+  <div>
+    <RouterLink to="/just">Just Componentga o'tish</RouterLink>
+  </div>
   
 </template>
 <style scoped>
