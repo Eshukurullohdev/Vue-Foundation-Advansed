@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import Just from '../components/Just.vue'
+import Parent from '@/views/Parent.vue'
+import Child from '@/components/Child.vue'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -23,6 +25,16 @@ const router = createRouter({
       name: 'just',
       component: Just,
     },
+    {
+      path: '/ota',
+      name: 'ota',
+      component: Parent
+    },
+    {
+      path: '/bola',
+      name: 'bola',
+      component: Child
+    }
   ],
 })
 
