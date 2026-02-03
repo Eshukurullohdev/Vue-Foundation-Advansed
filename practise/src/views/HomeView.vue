@@ -1,90 +1,109 @@
 <script setup>
-import { reactive, ref, computed } from 'vue'
-const show = ref(true)
+import { ref } from 'vue'
 
-const ismlar = ['ali', 'vali', 'hasan', 'husan']
 const active = ref(false)
-const son = ref(0)
-const user = reactive({
-  ism: "John",
-  yosh: 25
-})
-const list = reactive([
-  "Olma",
-  "Banan"
+const show = ref(false)
+const ism = ref("Ali")
+const time = ref(false)
+
+const son = ref(10)
+let intervalId = null
+
+
+const user = ref([
+  {
+    id: 1,
+    ism: 'Ali',
+    yosh: 20,
+    rasm: 'https://images.uzum.uz/crokh56vip07shn5qbf0/t_product_540_high.jpg',
+    narx: 10000,
+    soni: 2
+  },
+  {
+    id: 2,
+    ism: 'salim',
+    yosh: 25,
+    rasm: 'https://images.uzum.uz/crokh56vip07shn5qbf0/t_product_540_high.jpg',
+    narx: 12000,
+    soni: 2
+  }
 ])
 
-const kopaytir = () => {
-  console.log("Bosildi");
-  
+const start = () => {
+  if (intervalId) return
+
+  intervalId = setInterval(() => {
+    son.value--
+  }, 1000)
+}
+const stop = () => {
+  clearInterval(intervalId)
+  intervalId = null
 }
 
-const ota = () => alert('Ota bosildi')
-const bola = () => alert('bola bosildi')
-const text = ref('')
+const start1 = () => {
+  setTimeout(() => {
+    time.value = true
+  }, 2000)
+}
 
-
-const double = ref(0)
-
-const ikkiBarovar = computed(() => {
-  return son.value * 2
-})
 </script>
 
 <template>
-  <h1>Start Foundation</h1>
-  <div>
-    <button @click="show = !show">Bos</button>
-    <p v-if="show">men korinib turpman</p>
-    <p v-else>men yashirinman</p>
-  </div>
-  <div>
-    <ul>
-      <li v-for="(ism, index) in ismlar" :key="index">
-        {{ ism }}
-      </li>
-    </ul>
-  </div>
-  <div>
-    <button @click="active = !active" :class="{active: active}">Bos</button>
-  </div>
-  <div>
-    <button @click="son++">+</button>
-    <button @click="son--">-</button>
+
+
+  <div class="vaqt">
     <p>{{ son }}</p>
-  </div>
-  <div>
-    <p>{{ user.ism }}</p>
-    <p>{{ user.yosh }}</p>
-  </div>
-  <div>
-    <button @click="list.push('Anor')">Qosh</button>
-
-    <ul>
-      <li v-for="item in list" :key="item">{{ item }}</li>
-    </ul>
+    <button @click="start">start</button>
+    <button @click="stop">stop</button>
   </div>
 
-  <div>
-    <button @click="kopaytir">2x</button>
-    <input type="text" @input="text = $event.target.value">
-    <p>{{ text }}</p>
+  <button @click="start1">time</button>
+
+  <p v-if="time">2 second</p>
+  <p @click="ism = 'Vali'">{{ ism }}</p>
+
+  <button @click="show = !show">Show/Hide</button>
+  <p v-if="show">laylo</p>
+
+  <button @click="active = !active">Bos</button>
+
+  <transition name="fade">
+
+  </transition>
+
+
+  <h1>salom</h1>
+  <div v-for="user in user" :key="user.id">
+    <img :src="user.rasm" width="120" />
+    <p>ID: {{ user.id }}</p>
+    <p>ISM: {{ user.ism }}</p>
+    <p>YOSH: {{ user.yosh }}</p>
   </div>
-  <div @click="ota">
-      <button @click.stop="bola">Bos</button>
-  </div>
-  <div>
-    <input v-model="son">
-    <p>2 barobar: {{ ikkiBarovar }}</p>
-  </div>
-  <div>
-    <RouterLink to="/just">Just Componentga o'tish</RouterLink>
-  </div>
-  
 </template>
+
+
 <style scoped>
-.active {
-  background-color: green;
-  color: white;
+.vaqt {
+  width: 300px;
+  height: 300px;
+  border: 1px solid green;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+.box {
+  width: 200px;
+  height: 200px;
+  background-color: red;
+}
+
+.move {
+  transform: translateX(150px) rotate(45deg);
 }
 </style>
