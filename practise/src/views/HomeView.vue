@@ -47,10 +47,32 @@ const start1 = () => {
   }, 2000)
 }
 
+
+function salomBer() {
+  alert("Salom Vue")
+}
+
+
+const sonlar = ref(0)
+
+function oshir() {
+  son.value++
+}
+
+
+const imslas = ref('')
+
+function chqardsa() {
+  alert(imslas.value)
+}
 </script>
 
 <template>
-
+<input v-model="imslas" type="text">
+<button @click="chqardsa()">dsds</button>
+<p>{{ sonlar }}</p>
+<button @click="oshir()">++</button>
+<button @click="salomBer()">salom</button>
 
   <div class="vaqt">
     <p>{{ son }}</p>
